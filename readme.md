@@ -17,7 +17,8 @@ The system should allow you to quickly trigger it with a hotkey, speak your ques
 ### Phase 1: Core Components
 
 1. Basic Setup (✅ Complete)
-   - ✅ project setup, use uv
+   - ✅ project setup with uv
+   - ✅ directory structure organized
    - Key dependencies:
      * ✅ anthropic (AI API access) 
      * ✅ sounddevice (audio recording)
@@ -46,7 +47,11 @@ The system should allow you to quickly trigger it with a hotkey, speak your ques
      * ⚠️ AI processing integration
      * ⚠️ Response generation
 
-   - Step 3: Testing & Refinement (Not Started)
+   - Step 3: Testing & Refinement (🚧 In Progress)
+     * ✅ Unit tests for hotkey system
+     * ✅ Integration tests
+     * ⚠️ Coverage reports
+     * ⚠️ Performance testing
 
 ### Current Focus
 
@@ -55,7 +60,8 @@ The system should allow you to quickly trigger it with a hotkey, speak your ques
    - Implementing response playback
    - Adding conversation history
 
-2. **Error Handling**:
+2. **Error Handling & Testing**:
+   - Comprehensive test coverage
    - Improving error recovery
    - Adding better debug logging
    - Implementing graceful fallbacks
@@ -68,42 +74,52 @@ The system should allow you to quickly trigger it with a hotkey, speak your ques
    - Add configuration options
 
 2. **Testing & Documentation**:
-   - Add comprehensive tests
+   - Add more integration tests
    - Improve documentation
    - Create user guide
 
+## Project Structure
+
+```
+.
+├── src/                    # Source code
+│   ├── audio/             # Audio recording and playback
+│   ├── hotkeys/           # Hotkey handling
+│   └── processing/        # AI processing pipeline
+├── tests/                 # Test suite
+│   ├── unit/             # Unit tests
+│   └── integration/      # Integration tests
+├── recordings/           # Recorded audio files
+└── screenshots/          # Captured screenshots
+```
+
 ## Technical Stack
 
-- **Python 3.10+**: Core runtime environment
+- **Python 3.10.16**: Core runtime environment
 - **uv**: Fast Python package installer and resolver
 - **Anthropic Claude/GPT-4**: AI model backends
 - **faster-whisper**: Efficient speech-to-text processing
 - **PyObjC**: macOS system integration
 - **Pillow**: Image processing for screenshots
 - **sounddevice/soundfile**: Audio recording and file handling
+- **pytest**: Testing framework
 
 ## Getting Started
 
 ### Prerequisites
 
-- **Python**: Exactly version 3.10 (not 3.11 or 3.12)
-  ```bash
-  # Check your Python version
-  python3 --version
-  
-  # If needed, install Python 3.10 using pyenv
-  pyenv install 3.10
-  pyenv global 3.10
-  ```
 - **macOS**: Currently macOS-only due to PyObjC dependency
 - **API Keys**:
   - Anthropic API key (for Claude AI)
   - OpenAI API key (for text-to-speech)
-- **uv**: Fast Python package installer
-  ```bash
-  # Install uv
-  pip install uv
-  ```
+
+That's it! The installation process will automatically handle:
+- Installing Homebrew (if needed)
+- Installing pyenv (if needed)
+- Installing Python 3.10.16 (if needed)
+- Installing UV package manager
+- Setting up a virtual environment
+- Installing all project dependencies
 
 ### Installation
 
@@ -113,9 +129,9 @@ git clone https://github.com/yourusername/roll-your-own-assistant.git
 cd roll-your-own-assistant
 ```
 
-2. Install dependencies using uv:
+2. Run the installation:
 ```bash
-# This will verify Python 3.10 and install dependencies
+# This will install everything needed, including Python 3.10.16
 make install
 ```
 
@@ -131,8 +147,11 @@ OPENAI_API_KEY=your_openai_key_here
 # Install dependencies
 make install
 
-# Run tests
-make test
+# Run unit tests
+make test-unit
+
+# Run all tests (unit + integration)
+make test-all
 
 # Run the application
 make run
@@ -151,7 +170,7 @@ make update
 make run
 ```
 
-2. Use the default hotkey (Command + Shift + Space) to:
+2. Use the default hotkey (Command + Shift + A) to:
    - Start recording (press once)
    - Stop recording and process (press again)
    - The system will:
@@ -160,9 +179,13 @@ make run
      * Process with AI
      * Provide an audio response
 
+3. Use Command + Shift + Q to quit the application cleanly
+
 ### Configuration
 
-- Default hotkey: Command + Shift + Space
+- Default hotkeys: 
+  * Command + Shift + A: Start/Stop recording
+  * Command + Shift + Q: Quit application
 - Audio recordings are stored in `recordings/`
 - Screenshots are stored in `screenshots/`
 - Logs are stored in the project root directory
@@ -176,7 +199,26 @@ make run
 2. If the hotkey doesn't work:
    - Ensure no other application is using the same hotkey
    - Check System Preferences > Security & Privacy > Accessibility
+   - Try restarting the application
 
 3. For model loading issues:
    - Ensure you have sufficient disk space (~2GB for models)
    - Check your internet connection for initial model downloads
+
+4. For installation issues:
+   - Ensure you're using Python 3.10.16 exactly
+   - Try running `make clean` followed by `make install`
+   - Check that portaudio is installed (`brew install portaudio`)
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Run tests to ensure everything works (`make test-all`)
+4. Commit your changes (`git commit -m 'Add amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

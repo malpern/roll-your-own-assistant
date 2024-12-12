@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from hotkeys import HotkeyListener
+from src.hotkeys import HotkeyListener
 
 
 class TestHotkeyListenerErrors(unittest.TestCase):
     def test_init_audio_failure(self):
         """Test handling of audio initialization failure"""
-        with patch('hotkeys.AudioRecorder') as mock_recorder_cls:
+        with patch('src.hotkeys.listener.AudioRecorder') as mock_recorder_cls:
             # Make the constructor raise an exception
             mock_recorder_cls.side_effect = Exception("Audio init failed")
             
@@ -19,7 +19,7 @@ class TestHotkeyListenerErrors(unittest.TestCase):
 
     def test_init_pipeline_failure(self):
         """Test handling of pipeline initialization failure"""
-        with patch('hotkeys.ProcessingPipeline') as mock_pipeline_cls:
+        with patch('src.hotkeys.listener.ProcessingPipeline') as mock_pipeline_cls:
             # Make the constructor raise an exception
             mock_pipeline_cls.side_effect = Exception("Pipeline init failed")
             
@@ -33,8 +33,8 @@ class TestHotkeyListenerErrors(unittest.TestCase):
     def test_monitor_setup_failure(self):
         """Test handling of monitor setup failure"""
         # Create a listener with mocked components
-        with patch('hotkeys.AudioRecorder') as mock_recorder_cls, \
-             patch('hotkeys.ProcessingPipeline') as mock_pipeline_cls:
+        with patch('src.hotkeys.listener.AudioRecorder') as mock_recorder_cls, \
+             patch('src.hotkeys.listener.ProcessingPipeline') as mock_pipeline_cls:
             
             # Create mock instances
             mock_recorder = MagicMock()
@@ -57,7 +57,7 @@ class TestHotkeyListenerErrors(unittest.TestCase):
                     MagicMock(return_value=None)
                 
                 # Patch NSEvent with our mock
-                with patch('hotkeys.NSEvent', mock_event):
+                with patch('src.hotkeys.listener.NSEvent', mock_event):
                     # Try to start the listener
                     success = listener.start()
                     

@@ -11,7 +11,7 @@ from AppKit import (
     NSCommandKeyMask,
     NSShiftKeyMask
 )
-from hotkeys import HotkeyListener
+from src.hotkeys import HotkeyListener
 from unittest.mock import MagicMock
 
 class TestHotkeyListenerPerformance(unittest.TestCase):

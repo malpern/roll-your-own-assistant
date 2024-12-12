@@ -32,11 +32,18 @@ check-python:
 	@pyenv global $(REQUIRED_PYTHON_VERSION).$(PYTHON_PATCH_VERSION)
 	@eval "$$(pyenv init -)"
 
+# Install UV if not already installed
+install-uv:
+	@if ! command -v uv >/dev/null 2>&1; then \
+		echo "Installing UV package installer..."; \
+		curl -LsSf https://astral.sh/uv/install.sh | sh; \
+	fi
+
 # Create directories if they don't exist
 $(shell mkdir -p recordings screenshots)
 
 # Installation
-install: check-python
+install: check-python install-uv
 	@if ! brew list portaudio > /dev/null 2>&1; then \
 		echo "Installing portaudio..."; \
 		brew install portaudio; \
@@ -56,14 +63,14 @@ test: test-unit  ## Run unit tests (default)
 	@echo "Completed unit tests"
 
 test-unit:  ## Run only unit tests
-	python3 run_tests.py --pattern "test_*.py" --type unit
+	. $(VENV)/bin/activate && PYTHONPATH=. python -m unittest discover tests/unit -p "test_*.py" -v
 
 test-all:  ## Run all tests (unit, integration, etc)
-	python3 run_tests.py --pattern "test_*.py"
+	. $(VENV)/bin/activate && PYTHONPATH=. python -m unittest discover tests -p "test_*.py" -v
 
 # Run the application
 run: check-python
-	$(PYTHON) main.py
+	. $(VENV)/bin/activate && $(PYTHON) main.py
 
 # Clean temporary files and caches
 clean:
@@ -78,11 +85,11 @@ clean:
 	find . -type d -name "__pycache__" -exec rm -r {} +
 
 # Update dependencies
-update: check-python
+update: check-python install-uv
 	$(UV) pip install --upgrade -r requirements.txt
 
 # Initialize development environment
-init: check-python
+init: check-python install-uv
 	$(UV) venv --python=$(PYTHON)
 	$(UV) pip install -r requirements.txt
 	touch .env

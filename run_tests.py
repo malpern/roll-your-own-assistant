@@ -19,7 +19,7 @@ def run_tests(pattern, test_type=None):
     
     if test_type == 'unit':
         # Assuming unit tests are in files that don't contain 'integration' or 'e2e'
-        suite = loader.discover('.', pattern=pattern)
+        suite = loader.discover('tests/unit', pattern=pattern)
         # Filter out non-unit tests
         filtered_suite = unittest.TestSuite()
         for test in suite:
@@ -29,7 +29,7 @@ def run_tests(pattern, test_type=None):
         suite = filtered_suite
     else:
         # Run all tests
-        suite = loader.discover('.', pattern=pattern)
+        suite = loader.discover('tests', pattern=pattern)
     
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
@@ -48,7 +48,7 @@ def cleanup_handler():
         
         # Try to clean up PyAudio if available
         try:
-            from audio_recorder import cleanup_pa
+            from src.audio import cleanup_pa
             cleanup_pa()
         except ImportError:
             pass

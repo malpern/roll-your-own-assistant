@@ -1,5 +1,5 @@
 import unittest
-from hotkey_listener import CustomHotkeyListener
+from src.hotkeys.listener import CustomHotkeyListener
 import time
 
 class TestHotkeyIntegration(unittest.TestCase):

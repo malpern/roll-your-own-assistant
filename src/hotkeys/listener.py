@@ -28,9 +28,9 @@ from PIL import ImageGrab
 from objc import super
 
 # Local imports
-from audio_recorder import AudioRecorder
-from audio_player import AudioPlayer
-from processing import ProcessingPipeline
+from ..audio.recorder import AudioRecorder
+from ..audio.player import AudioPlayer
+from ..processing import ProcessingPipeline
 
 COMMAND_SHIFT_FLAGS = NSCommandKeyMask | NSShiftKeyMask
 

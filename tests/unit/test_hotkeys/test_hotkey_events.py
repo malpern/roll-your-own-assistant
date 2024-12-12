@@ -7,7 +7,7 @@ from AppKit import (
     NSCommandKeyMask,
     NSShiftKeyMask
 )
-from hotkeys import HotkeyListener
+from src.hotkeys import HotkeyListener
 import time
 
 class TestHotkeyListenerEvents(unittest.TestCase):

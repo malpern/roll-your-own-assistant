@@ -7,8 +7,8 @@ from AppKit import (
     NSCommandKeyMask,
     NSShiftKeyMask
 )
-from hotkeys import HotkeyListener
-from audio_recorder import AudioRecorder
+from src.hotkeys import HotkeyListener
+from src.audio import AudioRecorder
 
 
 class TestHotkeyListenerCore(unittest.TestCase):
@@ -22,8 +22,8 @@ class TestHotkeyListenerCore(unittest.TestCase):
         self.mock_pipeline.process = MagicMock(return_value=True)
         
         # Create patches
-        self.recorder_patcher = patch('hotkeys.AudioRecorder', return_value=self.mock_recorder)
-        self.pipeline_patcher = patch('hotkeys.ProcessingPipeline', return_value=self.mock_pipeline)
+        self.recorder_patcher = patch('src.hotkeys.listener.AudioRecorder', return_value=self.mock_recorder)
+        self.pipeline_patcher = patch('src.hotkeys.listener.ProcessingPipeline', return_value=self.mock_pipeline)
         
         # Start patches
         self.mock_recorder_cls = self.recorder_patcher.start()
