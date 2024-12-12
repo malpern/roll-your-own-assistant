@@ -1,0 +1,10 @@
+anthropic>=0.18.1
+Pillow>=10.2.0
+pyobjc==10.3.2
+pyobjc-framework-Cocoa>=9.2
+python-dotenv==1.0.0 
+faster-whisper==0.9.0
+sounddevice>=0.4.6
+soundfile>=0.12.1  # For saving audio files
+openai>=1.3.5  # For text-to-speech
+pyaudio==0.2.13
