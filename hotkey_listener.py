@@ -20,12 +20,12 @@ MODIFIER_MAP = {
     NSControlKeyMask: 'ctrl'
 }
 
-class HotkeyListener(NSObject):
+class CustomHotkeyListener(NSObject):
     def __new__(cls):
         return cls.alloc().init()
         
     def __init__(self):
-        objc.super(HotkeyListener, self).__init__()
+        objc.super(CustomHotkeyListener, self).__init__()
         self.hotkey_manager = HotkeyManager()
         self.monitor = None
         

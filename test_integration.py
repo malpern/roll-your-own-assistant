@@ -1,10 +1,10 @@
 import unittest
-from hotkey_listener import HotkeyListener
+from hotkey_listener import CustomHotkeyListener
 import time
 
 class TestHotkeyIntegration(unittest.TestCase):
     def setUp(self):
-        self.listener = HotkeyListener()
+        self.listener = CustomHotkeyListener()
         
     def test_basic_listener_setup(self):
         success = self.listener.start()

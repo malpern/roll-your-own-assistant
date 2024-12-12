@@ -2,8 +2,8 @@
 
 # Python environment variables
 PYTHON := python3
-REQUIRED_PYTHON_VERSION := 3.11
-PYTHON_PATCH_VERSION := 7
+REQUIRED_PYTHON_VERSION := 3.10
+PYTHON_PATCH_VERSION := 16
 VENV := .venv
 UV := UV_LINK_MODE=copy uv  # Set UV link mode to suppress warning
 SHELL := /bin/zsh  # Use zsh instead of bash
