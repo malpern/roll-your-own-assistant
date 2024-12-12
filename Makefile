@@ -48,7 +48,7 @@ install: check-python install-uv
 		echo "Installing portaudio..."; \
 		brew install portaudio; \
 	fi
-	$(UV) venv --python=$(PYTHON)
+	$(UV) venv --python=$(shell pyenv which python$(REQUIRED_PYTHON_VERSION).$(PYTHON_PATCH_VERSION))
 	$(UV) pip install -r requirements.txt
 	@echo "\nInstallation complete!"
 	@echo "To activate the virtual environment, run:"
